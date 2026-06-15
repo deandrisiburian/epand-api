@@ -1,0 +1,30 @@
+{
+  "name": "epann-base-api",
+  "version": "2.0.0",
+  "description": "Fullstack Epann Base API - TypeScript + Auto Config",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node index.ts",
+    "build": "npm run clean && tsc && npm run copy-assets",
+    "clean": "rm -rf dist",
+    "copy-assets": "cp -r public src/config.json dist/",
+    "start": "node dist/index.js",
+    "deploy": "npm run build && vercel"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.0",
+    "vercel": "^34.0.0"
+  }
+}
