@@ -1,18 +1,18 @@
 {
   "name": "epann-base-api",
   "version": "2.0.0",
-  "description": "Fullstack Epann Base API - TypeScript + Auto Config",
-  "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node index.ts",
-    "build": "tsc",
-    "vercel-build": "npm run build",
-    "start": "node dist/index.js",
+    "build": "npm run clean && tsc && npm run copy-assets",
     "clean": "rm -rf dist",
-    "copy-assets": "cp -r public src/config.json dist/",
+    "copy-assets": "mkdir -p dist && cp -r public dist/ && cp src/config.json dist/",
     "start": "node dist/index.js",
-    "deploy": "npm run build && vercel"
+    "deploy": "npm run build && vercel --prod"
   },
+  "vercel": {
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist"
+  }
   "dependencies": {
     "chalk": "^5.3.0",
     "cors": "^2.8.5",
