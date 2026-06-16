@@ -24,6 +24,9 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import crypto from 'crypto';
 
+// Creator info untuk setiap endpoint
+const CREATOR = "Epann";
+
 function uuidv4(): string {
   return crypto.randomUUID();
 }
@@ -43,7 +46,11 @@ export default async function (req: Request, res: Response) {
   const model = String(req.query.model || 'openai/gpt-5.5').trim();
 
   if (!prompt) {
-    return res.status(400).json({ status: false, result: 'Parameter prompt wajib diisi' });
+    return res.status(400).json({ 
+      status: false, 
+      creator: CREATOR,
+      result: 'Parameter prompt wajib diisi' 
+    });
   }
 
   const base_url = 'https://www.chatday.ai';
@@ -100,8 +107,16 @@ export default async function (req: Request, res: Response) {
 
     const result = removeKeysRecursive({ model, response: answer }, ['creator', 'author']);
 
-    return res.json({ status: true, result });
+    return res.json({ 
+      status: true, 
+      creator: CREATOR,  // ✅ Creator ditambahkan di response
+      result 
+    });
   } catch (err: any) {
-    return res.status(500).json({ status: false, result: err.message });
+    return res.status(500).json({ 
+      status: false, 
+      creator: CREATOR,  // ✅ Creator ditambahkan di response error
+      result: err.message 
+    });
   }
 };
