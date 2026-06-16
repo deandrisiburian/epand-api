@@ -1,73 +1,68 @@
 import { Express, RequestHandler } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { generateConfig, loadConfig } from './scanner';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 export default function autoloadRoutes(app: Express) {
-  if (process.env.NODE_ENV !== 'production') {
-    generateConfig();
-  }
+  try {
+    const configPath = path.join(__dirname, '..', 'src', 'config.json');
 
-  const config = loadConfig();
+    if (!fs.existsSync(configPath)) {
+      console.log('⚠️ config.json not found');
+      return;
+    }
 
-  console.log('\n🔄 Auto loading routes...\n');
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
-  Object.entries(config.tags).forEach(([category, routes]) => {
-    routes.forEach((route: any) => {
-      const isProduction = process.env.NODE_ENV === 'production';
+    if (!config.tags || Object.keys(config.tags).length === 0) {
+      console.log('⚠️ No routes in config.json');
+      return;
+    }
 
-      const tsPath = path.join(process.cwd(), 'router', category, `${route.filename}.ts`);
-      const jsPath = path.join(process.cwd(), 'dist', 'router', category, `${route.filename}.js`);
+    console.log('\n🔄 Auto loading routes...\n');
 
-      const filePath = isProduction ? jsPath : tsPath;
+    Object.entries(config.tags).forEach(([category, routes]: [string, any]) => {
+      (routes as any[]).forEach((route: any) => {
+        try {
+          const isProduction = process.env.NODE_ENV === 'production';
+          const baseDir = isProduction
+            ? path.join(__dirname, '..', 'router')
+            : path.join(process.cwd(), 'router');
+          const filePath = path.join(baseDir, category, `${route.filename}.js`);
 
-      try {
-        if (!fs.existsSync(filePath)) {
-          console.log(`⚠️ File not found: ${filePath}`);
-          return;
-        }
-
-        delete require.cache[require.resolve(filePath)];
-        const imported = require(filePath);
-        const handler: RequestHandler = imported.default;
-
-        if (typeof handler !== 'function') {
-          console.log(`❌ Invalid handler in ${filePath}`);
-          return;
-        }
-
-        const method = String(route.method || 'GET').toLowerCase() as Lowercase<HttpMethod>;
-
-        switch (method) {
-          case 'get':
-            app.get(route.endpoint, handler);
-            break;
-          case 'post':
-            app.post(route.endpoint, handler);
-            break;
-          case 'put':
-            app.put(route.endpoint, handler);
-            break;
-          case 'delete':
-            app.delete(route.endpoint, handler);
-            break;
-          case 'patch':
-            app.patch(route.endpoint, handler);
-            break;
-          default:
-            console.log(`⚠️ Unsupported method ${route.method} for ${route.endpoint}`);
+          if (!fs.existsSync(filePath)) {
+            console.log(`⚠️ Not found: ${filePath}`);
             return;
+          }
+
+          const imported = require(filePath);
+          const handler: RequestHandler = imported.default || imported;
+
+          if (typeof handler !== 'function') {
+            console.log(`❌ Invalid: ${filePath}`);
+            return;
+          }
+
+          const method = String(route.method || 'GET').toLowerCase();
+
+          switch (method) {
+            case 'get': app.get(route.endpoint, handler); break;
+            case 'post': app.post(route.endpoint, handler); break;
+            case 'put': app.put(route.endpoint, handler); break;
+            case 'delete': app.delete(route.endpoint, handler); break;
+            default: return;
+          }
+
+          console.log(`✅ Loaded: [${route.method}] ${route.endpoint}`);
+        } catch (err: any) {
+          console.error(`❌ ${route.endpoint}: ${err.message}`);
         }
-
-        console.log(`✅ Loaded: [${route.method}] ${route.endpoint} -> ${category}/${route.filename}`);
-      } catch (error) {
-        console.error(`❌ Failed to load route ${route.endpoint}`);
-        console.error(error);
-      }
+      });
     });
-  });
 
-  console.log('\n🚀 All routes loaded!\n');
+    console.log('\n🚀 Done!\n');
+  } catch (err: any) {
+    console.error('❌ autoloadRoutes:', err.message);
+  }
 }

@@ -29,7 +29,6 @@ export interface AppConfig {
 
 function extractMetaFromComment(filePath: string): RouteMeta | null {
   const content = fs.readFileSync(filePath, 'utf-8');
-
   const match = content.match(/\/\*\*[\s\r\n]*([\s\S]*?)\*\//);
   if (!match) return null;
 
@@ -50,8 +49,9 @@ function extractMetaFromComment(filePath: string): RouteMeta | null {
 }
 
 function scanDirectory(dir: string, tags: Record<string, any[]>) {
-  const items = fs.readdirSync(dir);
+  if (!fs.existsSync(dir)) return;
 
+  const items = fs.readdirSync(dir);
   for (const item of items) {
     const fullPath = path.join(dir, item);
     const stat = fs.statSync(fullPath);
@@ -85,14 +85,14 @@ export function generateConfig(): AppConfig {
   const tags: Record<string, any[]> = {};
 
   if (!fs.existsSync(ROUTER_DIR)) {
+    console.warn('⚠️ router/ folder not found');
     const emptyConfig: AppConfig = {
-      title: 'Kuroneko Base API',
+      title: 'Epann Base API',
       description: 'Modern TypeScript REST API with Auto Documentation',
       version: '2.0.0',
       lastUpdated: new Date().toISOString(),
       tags
     };
-
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(emptyConfig, null, 2));
     return emptyConfig;
   }
@@ -107,9 +107,14 @@ export function generateConfig(): AppConfig {
     tags
   };
 
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-  console.log('✅ config.json generated automatically\n');
+  if (!fs.existsSync(path.dirname(CONFIG_PATH))) {
+    fs.mkdirSync(path.dirname(CONFIG_PATH), { recursive: true });
+  }
 
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+  console.log('✅ config.json generated');
+  console.log('📁 Categories:', Object.keys(tags).join(', ') || 'none');
+  console.log('📄 Total endpoints:', Object.values(tags).flat().length);
   return config;
 }
 
@@ -117,10 +122,16 @@ export function loadConfig(): AppConfig {
   if (!fs.existsSync(CONFIG_PATH)) {
     return generateConfig();
   }
-
   try {
     return JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
   } catch {
     return generateConfig();
   }
 }
+
+// Auto-run
+(function() {
+  const config = generateConfig();
+  console.log('✅ Done');
+  process.exit(0);
+})();

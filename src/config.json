@@ -2,6 +2,28 @@
   "title": "Epann Base API",
   "description": "Modern TypeScript REST API with Auto Documentation",
   "version": "2.0.0",
-  "lastUpdated": "",
-  "tags": {}
+  "lastUpdated": "2026-06-16T04:57:03.578Z",
+  "tags": {
+    "ai": [
+      {
+        "name": "Chatday AI",
+        "endpoint": "/api/ai/chatday",
+        "filename": "chatday",
+        "method": "GET",
+        "params": [
+          {
+            "name": "prompt",
+            "required": true,
+            "description": "Pertanyaan untuk AI"
+          },
+          {
+            "name": "model",
+            "required": false,
+            "description": "Pilih model AI (default: openai/gpt-5.5)"
+          }
+        ],
+        "description": "Chatday AI — Multi model AI dengan 24 pilihan model (1 req/detik)"
+      }
+    ]
+  }
 }
