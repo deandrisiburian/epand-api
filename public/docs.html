@@ -5,57 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EpannAPIs Docs - Interactive REST API Documentation</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="theme-color" content="#0a0f1e" />
+  <meta name="theme-color" content="#facc15" />
   <style>
     body {
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,.18), transparent 30%),
-        radial-gradient(circle at top right, rgba(16,185,129,.15), transparent 35%),
-        linear-gradient(180deg, #07112a, #0f172a);
+      background-color: #f4f1ea;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,.10) 1px, transparent 0);
+      background-size: 24px 24px;
     }
-    .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+
+    .neo-card {
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0 #000;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
-    textarea, input, select {
+
+    .neo-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 14px 14px 0 #000;
+    }
+
+    .neo-btn {
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 #000;
+    }
+
+    .neo-btn:active {
+      transform: translate(0, 0);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .neo-input {
+      border: 4px solid #000;
+      box-shadow: 4px 4px 0 #000;
+      background: #fff;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .neo-input:focus {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 #000;
       outline: none;
     }
+
+    .neo-badge {
+      border: 3px solid #000;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .neo-code {
+      background: #111827;
+      color: #86efac;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0 #000;
+    }
+
+    .method-get { background: #86efac; color: #000; }
+    .method-post { background: #67e8f9; color: #000; }
+    .method-delete { background: #fb7185; color: #000; }
+    .method-put { background: #facc15; color: #000; }
+    .method-default { background: #c4b5fd; color: #000; }
+
+    .tag-yellow { background: #facc15; }
+    .tag-cyan { background: #67e8f9; }
+    .tag-pink { background: #f9a8d4; }
+    .tag-green { background: #86efac; }
+    .tag-orange { background: #fdba74; }
   </style>
 </head>
-<body class="text-white min-h-screen">
+<body class="text-black min-h-screen">
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
+  <nav class="sticky top-0 z-50 border-b-4 border-black bg-[#f4f1ea]">
     <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div>
         <a href="/" class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <div class="w-11 h-11 rounded-2xl bg-[#facc15] border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
           <div>
-            <span class="text-xl font-black">EpannAPIs Docs</span>
-            <p class="text-xs text-white/50 leading-none mt-0.5">Interactive REST API Documentation</p>
+            <span class="text-xl font-black tracking-tight">EpannAPIs Docs</span>
+            <p class="text-xs font-bold text-black/60 leading-none mt-0.5">Interactive REST API Documentation</p>
           </div>
         </a>
       </div>
 
       <div class="flex gap-3">
         <div class="relative flex-1 md:flex-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-white/35" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-black/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
           </svg>
           <input
             id="search-input"
             type="text"
             placeholder="Cari endpoint..."
-            class="pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/35 w-full md:w-72"
+            class="neo-input pl-10 pr-4 py-2 rounded-xl text-black placeholder:text-black/40 w-full md:w-72 font-bold"
           />
         </div>
-        <a href="/" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 transition whitespace-nowrap">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <a href="/" class="neo-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-white font-bold whitespace-nowrap">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
           Home
@@ -68,23 +125,32 @@
 
     <!-- HEADER INFO -->
     <section class="mb-10">
-      <div class="glass rounded-3xl p-6 md:p-8">
-        <h1 id="doc-title" class="text-3xl md:text-5xl font-black mb-3">Loading...</h1>
-        <p id="doc-description" class="text-white/65 mb-6">Memuat dokumentasi...</p>
+      <div class="neo-card rounded-3xl p-6 md:p-8 bg-white">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="neo-badge tag-yellow rounded-full px-4 py-1 text-sm font-black uppercase tracking-wide">
+            API Documentation
+          </span>
+          <span id="doc-version-badge" class="neo-badge bg-white rounded-full px-3 py-1 text-sm font-bold">
+            v<span id="doc-version">-</span>
+          </span>
+        </div>
+        
+        <h1 id="doc-title" class="text-3xl md:text-5xl font-black mb-3 tracking-tight">Loading...</h1>
+        <p id="doc-description" class="text-black/70 text-lg mb-6 font-medium">Memuat dokumentasi...</p>
 
-        <div class="flex flex-wrap gap-6 text-sm text-white/60">
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <div class="flex flex-wrap gap-4 text-sm font-bold">
+          <div class="flex items-center gap-2 neo-badge bg-white rounded-full px-4 py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
             </svg>
-            Version: <span id="doc-version" class="text-white font-semibold">-</span>
+            Version: <span id="doc-version-text" class="text-black font-black">-</span>
           </div>
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <div class="flex items-center gap-2 neo-badge bg-[#67e8f9] rounded-full px-4 py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
-            Updated: <span id="doc-updated" class="text-white font-semibold">-</span>
+            Updated: <span id="doc-updated" class="text-black font-black">-</span>
           </div>
         </div>
       </div>
@@ -101,20 +167,20 @@
 
   <!-- ENDPOINT CARD TEMPLATE -->
   <template id="endpoint-template">
-    <div class="glass rounded-3xl p-6 endpoint-card">
+    <div class="neo-card rounded-3xl p-6 endpoint-card bg-white">
       <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div class="flex-1">
           <div class="flex flex-wrap items-center gap-3 mb-3">
-            <span class="method-badge text-xs font-bold px-3 py-1 rounded-lg"></span>
-            <code class="endpoint-url text-sm md:text-base bg-black/30 px-3 py-2 rounded-xl border border-white/10 break-all"></code>
+            <span class="method-badge text-sm font-black px-4 py-2 rounded-xl neo-badge uppercase tracking-wider"></span>
+            <code class="endpoint-url text-sm md:text-base bg-gray-100 px-4 py-2 rounded-xl border-4 border-black font-mono font-bold break-all"></code>
           </div>
 
-          <h3 class="endpoint-name text-2xl font-bold mb-2"></h3>
-          <p class="endpoint-description text-white/65 mb-4"></p>
+          <h3 class="endpoint-name text-2xl font-black mb-2 tracking-tight"></h3>
+          <p class="endpoint-description text-black/70 mb-4 font-medium"></p>
 
           <div class="params-wrapper hidden">
-            <h4 class="font-semibold mb-3 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <h4 class="font-black mb-3 flex items-center gap-2 text-lg uppercase tracking-wide">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
               Parameters
@@ -123,15 +189,15 @@
           </div>
         </div>
 
-        <div class="flex gap-2">
-          <button class="copy-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <div class="flex gap-2 flex-wrap">
+          <button class="copy-btn neo-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-white font-bold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
             Copy
           </button>
-          <button class="toggle-try-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-90 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <button class="toggle-try-btn neo-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-[#facc15] font-bold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -141,19 +207,19 @@
       </div>
 
       <!-- TRY PANEL -->
-      <div class="try-panel hidden mt-6 border-t border-white/10 pt-6">
+      <div class="try-panel hidden mt-6 border-t-4 border-black pt-6">
         <div class="grid gap-4">
           <div class="dynamic-form grid md:grid-cols-2 gap-4"></div>
 
           <div class="flex flex-wrap gap-3">
-            <button class="send-btn flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500/90 hover:bg-emerald-500 transition font-semibold">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="send-btn neo-btn flex items-center gap-2 px-5 py-3 rounded-xl bg-[#86efac] font-black">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
               Send Request
             </button>
-            <button class="clear-btn flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 transition">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="clear-btn neo-btn flex items-center gap-2 px-5 py-3 rounded-xl bg-white font-bold">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
               Clear
@@ -161,23 +227,23 @@
           </div>
 
           <div>
-            <p class="text-sm text-white/55 mb-2 flex items-center gap-1.5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-sm font-black mb-2 flex items-center gap-2 uppercase tracking-wide">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
               </svg>
               Request URL
             </p>
-            <pre class="request-url bg-black/30 border border-white/10 rounded-2xl p-4 overflow-auto text-sm text-cyan-300">-</pre>
+            <pre class="request-url neo-code rounded-2xl p-4 overflow-auto text-sm font-mono font-bold text-[#86efac]">-</pre>
           </div>
 
           <div>
-            <p class="text-sm text-white/55 mb-2 flex items-center gap-1.5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-sm font-black mb-2 flex items-center gap-2 uppercase tracking-wide">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               Response
             </p>
-            <pre class="response-box bg-black/40 border border-white/10 rounded-2xl p-4 overflow-auto text-sm text-green-300 min-h-[120px]">Klik "Send Request" untuk mencoba endpoint.</pre>
+            <pre class="response-box neo-code rounded-2xl p-4 overflow-auto text-sm font-mono font-bold text-[#67e8f9] min-h-[120px]">Klik "Send Request" untuk mencoba endpoint.</pre>
           </div>
         </div>
       </div>
@@ -195,11 +261,11 @@
 
     function methodBadgeClass(method) {
       const m = String(method).toUpperCase();
-      if (m === 'GET')    return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/20';
-      if (m === 'POST')   return 'bg-blue-500/20 text-blue-300 border border-blue-500/20';
-      if (m === 'DELETE') return 'bg-red-500/20 text-red-300 border border-red-500/20';
-      if (m === 'PUT')    return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/20';
-      return 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/20';
+      if (m === 'GET')    return 'method-get';
+      if (m === 'POST')   return 'method-post';
+      if (m === 'DELETE') return 'method-delete';
+      if (m === 'PUT')    return 'method-put';
+      return 'method-default';
     }
 
     function createCategoryButtons(tags) {
@@ -220,9 +286,13 @@
 
     function getFilterButtonClass(category) {
       const active = CURRENT_CATEGORY === category;
-      return active
-        ? 'px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-medium capitalize'
-        : 'px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 transition capitalize';
+      const colors = ['tag-yellow', 'tag-cyan', 'tag-pink', 'tag-green', 'tag-orange'];
+      const randomColor = colors[Math.abs(category.split('').reduce((a,b)=>a+b.charCodeAt(0),0)) % colors.length];
+      
+      if (active) {
+        return `neo-btn px-4 py-2 rounded-xl ${randomColor} font-black capitalize border-4 border-black shadow-[6px_6px_0_#000]`;
+      }
+      return 'neo-btn px-4 py-2 rounded-xl bg-white font-bold capitalize border-4 border-black shadow-[6px_6px_0_#000] hover:shadow-[8px_8px_0_#000]';
     }
 
     function normalizeRoutes() {
@@ -257,7 +327,8 @@
 
       if (!routes.length) {
         docsContainer.innerHTML = `
-          <div class="glass rounded-3xl p-8 text-center text-white/60">
+          <div class="neo-card rounded-3xl p-8 text-center text-black/60 bg-white font-bold">
+            <div class="text-4xl mb-2">🔍</div>
             Tidak ada endpoint yang cocok.
           </div>`;
         return;
@@ -281,7 +352,7 @@
         const responseBox  = node.querySelector('.response-box');
 
         methodBadge.textContent = route.method;
-        methodBadge.className = `method-badge text-xs font-bold px-3 py-1 rounded-lg ${methodBadgeClass(route.method)}`;
+        methodBadge.className = `method-badge text-sm font-black px-4 py-2 rounded-xl neo-badge uppercase tracking-wider ${methodBadgeClass(route.method)}`;
         endpointUrl.textContent = route.endpoint;
         endpointName.textContent = `${route.name} • ${route.category}`;
         endpointDesc.textContent = route.description || '-';
@@ -291,13 +362,13 @@
           paramsWrapper.classList.remove('hidden');
           params.forEach(param => {
             const view = document.createElement('div');
-            view.className = 'bg-black/20 border border-white/10 rounded-2xl p-4';
+            view.className = 'bg-gray-50 border-4 border-black rounded-2xl p-4 shadow-[4px_4px_0_#000]';
             view.innerHTML = `
               <div class="flex items-center gap-2 mb-2">
-                <span class="font-mono text-cyan-300">${param.name}</span>
-                <span class="text-xs px-2 py-1 rounded-lg ${param.required ? 'bg-red-500/20 text-red-300' : 'bg-white/10 text-white/70'}">${param.required ? 'required' : 'optional'}</span>
+                <span class="font-mono font-black text-lg">${param.name}</span>
+                <span class="text-xs font-black px-3 py-1 rounded-lg border-2 border-black ${param.required ? 'bg-[#fb7185]' : 'bg-gray-200'} uppercase">${param.required ? 'required' : 'optional'}</span>
               </div>
-              <p class="text-sm text-white/60">${param.description || '-'}</p>`;
+              <p class="text-sm font-medium text-black/70">${param.description || '-'}</p>`;
             paramsList.appendChild(view);
           });
         }
@@ -307,12 +378,12 @@
           const wrapper = document.createElement('div');
           wrapper.className = 'flex flex-col gap-2';
           const label = document.createElement('label');
-          label.className = 'text-sm text-white/70';
+          label.className = 'text-sm font-black uppercase tracking-wide';
           label.textContent = `${param.name}${param.required ? ' *' : ''}`;
           const input = document.createElement('input');
           input.type = 'text';
           input.placeholder = param.description || param.name;
-          input.className = 'px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-white/30';
+          input.className = 'neo-input px-4 py-3 rounded-xl text-black placeholder:text-black/40 font-bold';
           wrapper.appendChild(label);
           wrapper.appendChild(input);
           dynamicForm.appendChild(wrapper);
@@ -330,11 +401,16 @@
         copyBtn.onclick = async () => {
           try {
             await navigator.clipboard.writeText(window.location.origin + route.endpoint);
-            copyBtn.innerHTML = '✅ Copied!';
-            setTimeout(() => { copyBtn.innerHTML = '📋 Copy'; }, 1400);
+            const original = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span class="text-green-600">✓</span> Copied!';
+            copyBtn.classList.add('bg-green-100');
+            setTimeout(() => { 
+              copyBtn.innerHTML = original;
+              copyBtn.classList.remove('bg-green-100');
+            }, 1400);
           } catch {
             copyBtn.innerHTML = '❌ Failed';
-            setTimeout(() => { copyBtn.innerHTML = '📋 Copy'; }, 1400);
+            setTimeout(() => { copyBtn.innerHTML = original; }, 1400);
           }
         };
 
@@ -378,15 +454,17 @@
         document.getElementById('doc-title').textContent = data.title || 'EpannAPIs Docs';
         document.getElementById('doc-description').textContent = data.description || '-';
         document.getElementById('doc-version').textContent = data.version || '-';
+        document.getElementById('doc-version-text').textContent = data.version || '-';
         document.getElementById('doc-updated').textContent = data.lastUpdated
           ? new Date(data.lastUpdated).toLocaleString('id-ID') : '-';
 
         rerender();
       } catch (err) {
         docsContainer.innerHTML = `
-          <div class="glass rounded-3xl p-8 text-center text-red-300">
-            Gagal memuat dokumentasi.<br/>
-            <span class="text-white/40 text-sm">${String(err)}</span>
+          <div class="neo-card rounded-3xl p-8 text-center bg-white border-red-500">
+            <div class="text-4xl mb-2">⚠️</div>
+            <div class="font-black text-red-600 mb-2">Gagal memuat dokumentasi</div>
+            <div class="text-black/60 text-sm font-bold">${String(err)}</div>
           </div>`;
       }
     }

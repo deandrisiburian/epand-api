@@ -5,47 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EpannAPIs - Modern Dynamic REST API</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="theme-color" content="#0a0f1e" />
+  <meta name="theme-color" content="#facc15" />
   <style>
     body {
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,.22), transparent 30%),
-        radial-gradient(circle at top right, rgba(16,185,129,.18), transparent 35%),
-        linear-gradient(180deg, #07112a, #0f172a);
+      background-color: #f4f1ea;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,.10) 1px, transparent 0);
+      background-size: 24px 24px;
     }
-    .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+
+    .neo-card {
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0 #000;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
-    .gradient-text {
-      background: linear-gradient(90deg, #38bdf8, #22d3ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .neo-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 14px 14px 0 #000;
     }
-    .accent-glow {
-      box-shadow: 0 0 20px rgba(56,189,248,0.3);
+
+    .neo-btn {
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 #000;
+    }
+
+    .neo-code {
+      background: #111827;
+      color: #86efac;
+      border: 4px solid #000;
+      box-shadow: 10px 10px 0 #000;
+    }
+
+    .neo-badge {
+      border: 3px solid #000;
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .highlight-yellow {
+      background: #facc15;
+      border: 3px solid #000;
+      padding: 0.15rem 0.45rem;
+      display: inline-block;
+      transform: rotate(-1deg);
+    }
+
+    .highlight-cyan {
+      background: #67e8f9;
+      border: 3px solid #000;
+      padding: 0.15rem 0.45rem;
+      display: inline-block;
+      transform: rotate(1deg);
+    }
+
+    .highlight-pink {
+      background: #f9a8d4;
+      border: 3px solid #000;
+      padding: 0.15rem 0.45rem;
+      display: inline-block;
+      transform: rotate(-1deg);
     }
   </style>
 </head>
-<body class="text-white min-h-screen">
-  <nav class="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
+<body class="text-black min-h-screen">
+  <nav class="sticky top-0 z-50 border-b-4 border-black bg-[#f4f1ea]">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-cyan-100">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <div class="w-11 h-11 rounded-2xl bg-[#facc15] border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
         <div>
-          <h1 class="font-bold text-lg">EpannAPIs</h1>
-          <p class="text-xs text-white/50">Modern Dynamic REST API</p>
+          <h1 class="font-black text-lg tracking-tight">EpannAPIs</h1>
+          <p class="text-xs font-semibold text-black/60">Modern Dynamic REST API</p>
         </div>
       </a>
 
       <div class="flex items-center gap-3">
-        <a href="/docs" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 transition">Docs</a>
-        <a href="/api/status" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-90 transition">Status</a>
+        <a href="/docs" class="neo-btn px-4 py-2 rounded-xl bg-white font-bold">
+          Docs
+        </a>
+        <a href="/api/status" class="neo-btn px-4 py-2 rounded-xl bg-[#facc15] font-bold">
+          Status
+        </a>
       </div>
     </div>
   </nav>
@@ -54,56 +104,70 @@
     <section class="py-20 md:py-28">
       <div class="grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm text-white/80 mb-6">
-            <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+          <div class="inline-flex items-center gap-2 bg-[#a7f3d0] neo-badge rounded-full px-4 py-2 text-sm font-bold text-black mb-6 -rotate-1">
+            <span class="w-3 h-3 bg-black rounded-full"></span>
             Siap Deploy • Auto Docs • Auto Route Scanner
           </div>
 
-          <h2 class="text-4xl md:text-6xl font-black leading-tight mb-6">
-            Bangun <span class="gradient-text">REST API modern</span> dengan
-            auto metadata & dokumentasi.
+          <h2 class="text-4xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
+            Bangun
+            <span class="highlight-yellow">REST API modern</span>
+            dengan auto metadata & dokumentasi.
           </h2>
 
-          <p class="text-white/70 text-lg leading-relaxed mb-8">
-            EpannAPIs adalah boilerplate fullstack TypeScript + Express dengan 
-            dynamic routing, scanner metadata, auto documentation, UI modern, 
+          <p class="text-black/75 text-lg leading-relaxed mb-8 max-w-xl">
+            EpannAPIs adalah boilerplate fullstack TypeScript + Express dengan
+            dynamic routing, scanner metadata, auto documentation, UI modern,
             dan siap deploy ke Vercel.
           </p>
 
           <div class="flex flex-wrap gap-4">
-            <a href="/docs" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold shadow-lg hover:scale-[1.02] transition accent-glow">
+            <a href="/docs" class="neo-btn px-6 py-3 rounded-2xl bg-[#facc15] font-black">
               Buka Dokumentasi
             </a>
-            <a href="#features" class="px-6 py-3 rounded-2xl glass hover:bg-white/10 transition">
+            <a href="#features" class="neo-btn px-6 py-3 rounded-2xl bg-white font-black">
               Lihat Fitur
             </a>
           </div>
 
-          <div class="mt-8 flex flex-wrap gap-6 text-sm text-white/60">
-            <div class="flex items-center gap-2">
+          <div class="mt-8 flex flex-wrap gap-4 text-sm font-bold text-black/70">
+            <div class="neo-badge bg-white rounded-full px-4 py-2 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5 16.477 5 20.268 7.943 21.542 12 20.268 16.057 16.477 19 12 19 7.523 19 3.732 16.057 2.458 12z" />
               </svg>
-              Visitor: <span id="visitor-count" class="text-white font-semibold">0</span>
+              Visitor: <span id="visitor-count" class="text-black font-black">0</span>
             </div>
-            <div class="flex items-center gap-2">
+
+            <div class="neo-badge bg-[#67e8f9] rounded-full px-4 py-2 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3v1m0 8v1m0-9l.01-.01M12 3v1m0 8v1m0-9l.01-.01M17 7h.01M17 3v1m0 8v1m0-9l.01-.01" />
               </svg>
-              Version: <span id="version" class="text-white font-semibold">-</span>
+              Version: <span id="version" class="text-black font-black">-</span>
             </div>
-            <div class="flex items-center gap-2">
+
+            <div class="neo-badge bg-[#f9a8d4] rounded-full px-4 py-2 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2" />
               </svg>
-              Updated: <span id="updated" class="text-white font-semibold">-</span>
+              Updated: <span id="updated" class="text-black font-black">-</span>
             </div>
           </div>
         </div>
 
-        <div class="glass rounded-3xl p-5 shadow-2xl">
-          <pre class="text-sm overflow-auto text-white/90"><code>{
+        <div class="neo-code rounded-3xl p-5 md:rotate-1">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-2">
+              <span class="w-4 h-4 rounded-full bg-[#fb7185] border-2 border-black"></span>
+              <span class="w-4 h-4 rounded-full bg-[#facc15] border-2 border-black"></span>
+              <span class="w-4 h-4 rounded-full bg-[#34d399] border-2 border-black"></span>
+            </div>
+            <span class="neo-badge bg-white text-black px-3 py-1 rounded-full text-xs font-black">
+              JSON RESPONSE
+            </span>
+          </div>
+
+          <pre class="text-sm overflow-auto text-[#86efac] leading-relaxed"><code>{
   "status": true,
   "title": "EpannAPIs",
   "description": "Modern TypeScript REST API with Auto Documentation",
@@ -122,88 +186,100 @@
 
     <section id="features" class="py-10 md:py-16">
       <div class="mb-10">
-        <h3 class="text-3xl font-bold mb-3">Fitur Utama</h3>
-        <p class="text-white/65">Dirancang agar scalable, rapi, dan nyaman digunakan sebagai base project API.</p>
+        <div class="inline-block neo-badge bg-[#facc15] rounded-full px-4 py-2 text-sm font-black mb-4">
+          FITUR UTAMA
+        </div>
+        <h3 class="text-3xl md:text-4xl font-black mb-3 tracking-tight">Fitur Utama</h3>
+        <p class="text-black/70">
+          Dirancang agar scalable, rapi, dan nyaman digunakan sebagai base project API.
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#67e8f9] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4L2 8l4 4" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">TypeScript</h4>
-          <p class="text-white/65">Lebih aman dengan static typing dan struktur kode yang maintainable.</p>
+          <h4 class="font-black text-xl mb-2">TypeScript</h4>
+          <p class="text-black/70">Lebih aman dengan static typing dan struktur kode yang maintainable.</p>
         </div>
 
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#facc15] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">Dynamic Routing</h4>
-          <p class="text-white/65">Endpoint dimuat otomatis berdasarkan file router dan metadata.</p>
+          <h4 class="font-black text-xl mb-2">Dynamic Routing</h4>
+          <p class="text-black/70">Endpoint dimuat otomatis berdasarkan file router dan metadata.</p>
         </div>
 
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#f9a8d4] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18 9.246 18 10.832 18.477 12 19.253zm0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18 14.754 18 13.168 18.477 12 19.253z" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">Auto Docs</h4>
-          <p class="text-white/65">Dokumentasi otomatis terbangun dari metadata scanner.</p>
+          <h4 class="font-black text-xl mb-2">Auto Docs</h4>
+          <p class="text-black/70">Dokumentasi otomatis terbangun dari metadata scanner.</p>
         </div>
 
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#86efac] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2 2 2 0 01-2-2 2 2 0 012-2 2 2 0 01-2-2 2 2 0 012-2 2 2 0 01-2-2 2 2 0 012-2z" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">Modern UI</h4>
-          <p class="text-white/65">Landing page dan dokumentasi yang responsif dan elegan.</p>
+          <h4 class="font-black text-xl mb-2">Modern UI</h4>
+          <p class="text-black/70">Landing page dan dokumentasi yang responsif dan elegan.</p>
         </div>
 
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#c4b5fd] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5 16.477 5 20.268 7.943 21.542 12 20.268 16.057 16.477 19 12 19 7.523 19 3.732 16.057 2.458 12z" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">Visitor Counter</h4>
-          <p class="text-white/65">Pelacakan traffic sederhana dengan JSON storage.</p>
+          <h4 class="font-black text-xl mb-2">Visitor Counter</h4>
+          <p class="text-black/70">Pelacakan traffic sederhana dengan JSON storage.</p>
         </div>
 
-        <div class="glass rounded-3xl p-6">
-          <div class="w-10 h-10 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mb-4">
+        <div class="neo-card rounded-3xl p-6 bg-white">
+          <div class="w-12 h-12 bg-[#fdba74] text-black rounded-2xl border-4 border-black shadow-[4px_4px_0_#000] flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 01-2-2H7a2 2 0 01-2 2v16m14 0h-4m-6 0H5" />
             </svg>
           </div>
-          <h4 class="font-bold text-xl mb-2">Production Ready</h4>
-          <p class="text-white/65">Mudah di-build, dijalankan, dan dideploy ke Vercel maupun VPS.</p>
+          <h4 class="font-black text-xl mb-2">Production Ready</h4>
+          <p class="text-black/70">Mudah di-build, dijalankan, dan dideploy ke Vercel maupun VPS.</p>
         </div>
       </div>
     </section>
 
     <section class="py-16">
-      <div class="glass rounded-3xl p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="neo-card rounded-3xl p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-white">
         <div>
-          <h3 class="text-2xl md:text-3xl font-bold mb-2">Mulai eksplor endpoint sekarang</h3>
-          <p class="text-white/65">Buka dokumentasi untuk mencoba API langsung dari browser.</p>
+          <div class="inline-block neo-badge bg-[#67e8f9] rounded-full px-4 py-2 text-sm font-black mb-4">
+            READY TO EXPLORE
+          </div>
+          <h3 class="text-2xl md:text-3xl font-black mb-2 tracking-tight">
+            Mulai eksplor endpoint sekarang
+          </h3>
+          <p class="text-black/70">
+            Buka dokumentasi untuk mencoba API langsung dari browser.
+          </p>
         </div>
-        <a href="/docs" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold text-center accent-glow">
+        <a href="/docs" class="neo-btn px-6 py-3 rounded-2xl bg-[#facc15] font-black text-center">
           Coba Docs Interaktif
         </a>
       </div>
     </section>
   </main>
 
-  <footer class="py-10 text-center text-white/45 text-sm">
+  <footer class="py-10 text-center text-black/65 text-sm font-medium">
     <p>EpannAPIs • Fullstack REST API • Ready to Deploy</p>
   </footer>
 
