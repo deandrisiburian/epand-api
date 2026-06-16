@@ -1,5 +1,6 @@
 {
   "title": "Epann Base API",
+  "creator": "Epann",
   "description": "Modern TypeScript REST API with Auto Documentation",
   "version": "2.0.0",
   "lastUpdated": "2026-06-16T04:57:03.578Z",
